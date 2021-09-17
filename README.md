@@ -31,7 +31,7 @@ You can install `Snyk` or use `docker scan`:
 
 OR just use `docker scan`.
 
-See [Snyk CLI install instructions](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) to get started for the CLI
+See [Snyk CLI install instructions](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) to get started for the CLI, or the [docker scan docs](https://docs.docker.com/engine/scan/).
 
 ### Scan a docker image for security vulnerabilities
 
