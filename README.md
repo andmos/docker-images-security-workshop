@@ -179,8 +179,9 @@ Only after you found issues with either or both of the above linters should you 
 
 <details><summary>Hint</summary>
 <br/>
-   
-```
+
+
+```sh
 docker build -t best-practices .
 ```
 
@@ -191,27 +192,28 @@ docker build -t best-practices .
 
 <details><summary>Solution</summary>
 <br/>
-   
-```
+
+
+```sh
 docker run -it --rm best-practices:latest sh
 ```
 
 Inside the container run:
 
-```
+```sh
 whoami
 ```
 
 <br/>
 </details>
 
-3. Fix the issue so that the container uses a non-privileged user
+3. Fix the issue so that the container uses a non-privileged user. Try running some privileged task to verify permissions.
 
 <details><summary>Solution</summary>
 <br/>
 Update the Dockerfile to make use of the built-in `node` user:
    
-```
+```sh
 ...
 USER node
 CMD node index.js
@@ -245,14 +247,14 @@ Can you think of a simple vulnerability in an application that will allow a mali
 
 You can build it yourself and try:
 
-```
+```sh
 export NPM_TOKEN=<npm token>
 docker build -t best-practices --build-arg NPM_TOKEN=$NPM_TOKEN .
 ```
 
 Now login to the container and validate the value of `.npmrc`:
 
-```
+```sh
 docker run -it --rm best-practices sh
 ```
 
@@ -266,7 +268,7 @@ docker run -it --rm best-practices sh
 
 You remember to remove the token, such as:
 
-```
+```sh
 RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
 RUN npm install
 RUN rm .npmrc
@@ -283,7 +285,7 @@ Every `RUN` creates another layer, all of which are later inspect-able and leave
 
 You understand the concept of Docker layers so you put all of this into one command to make sure there's no trace, something like this:
 
-```
+```sh
 RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc && \
     npm install && \
     rm .npmrc
@@ -311,7 +313,7 @@ Let's use multi-stage builds to fix it!
 
 Update the `Dockerfile` so that the first image is used as a base to install all of our npm dependencies and build what is required. To do that, update the FROM instruction as follows:
 
-```
+```sh
 FROM bitnami/node:latest AS build
 ```
 
@@ -320,7 +322,7 @@ Then have another section in the Dockerfile for the "production" image, which sh
 
 Following is an example:
 
-```
+```sh
 FROM bitnami/node:latest
 RUN mkdir ~/project
 COPY --from=build /app/~/project ~/project
@@ -330,7 +332,7 @@ CMD node index.js
 
 An example of a full multi-stage Node.js docker image build Dockerfile:
 
-```
+```sh
 FROM node:12 AS build
 RUN mkdir ~/project
 COPY app/. ~/project
@@ -352,6 +354,8 @@ CMD node index.js
 # Author
 
 **Docker image security best practices workshop** © [Liran Tal](https://github.com/lirantal), Released under [CC BY-SA 4.0](./LICENSE) License.
+
+Modified by [Andreas Mosti](https://github.com/andmos).
 
 # License
 
