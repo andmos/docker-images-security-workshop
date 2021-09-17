@@ -17,13 +17,19 @@ Starting point is this goofy project called `docker-goof` which uses an old vers
 
 We'll get started with scanning a docker image using the Snyk CLI which is free to use and scan.
 
-### Install the Snyk CLI
+### Install the Snyk CLI or use Docker Scan
 
 You can use the open source Snyk CLI to scan the image.
+
+> Snyk is now a part of Docker Desktop as [docker scan](https://docs.docker.com/engine/scan/).
+
+You can install `Snyk` or use `docker scan`:
 
 * [Install Snyk on Windows](https://support.snyk.io/hc/en-us/articles/360003812538#UUID-ac39f35d-8608-e949-613d-24333ced4d42)
 * [Install Snyk on macOS](https://support.snyk.io/hc/en-us/articles/360003812538#UUID-876089c6-d195-a81e-4c7a-21354f788306)
 * [Install Snyk on Linux](https://github.com/snyk/snyk/releases) and other self-contained executables for Windows and macOS.
+
+OR just use `docker scan`.
 
 See [Snyk CLI install instructions](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) to get started for the CLI
 
@@ -31,9 +37,16 @@ See [Snyk CLI install instructions](https://support.snyk.io/hc/en-us/articles/36
 
 To scan an image you'll need to pull the docker image to your host locally and then scan it:
 
-```
+```sh
 $ docker pull <image>
 $ snyk test --docker <image>
+```
+
+or 
+
+```sh
+$ docker pull <image>
+$ docker scan <image>
 ```
 
 <br/>
@@ -50,8 +63,14 @@ If the Snyk CLI is provided with a Dockerfile it will give you a remediation adv
 
 What happens if you provide the Snyk CLI with the Dockerfile as well?
 
-```
+```sh
 snyk test --docker <image> --file=Dockerfile
+```
+
+or 
+
+```sh
+docker scan --file Dockerfile <image>
 ```
 
 
@@ -61,8 +80,14 @@ snyk test --docker <image> --file=Dockerfile
 <details><summary>Solution</summary>
 <br/>
 
-```
+```sh
 snyk test --docker node:10.4.0 --file=Dockerfile
+```
+
+or 
+
+```sh
+docker scan --file Dockerfile node:10.40.0
 ```
 
 <br/>
@@ -77,13 +102,13 @@ Find and fix vulnerabilities in docker images in a Docker Hub registry or others
 
 Bonus challenge - how do you monitor your docker images on a container registry and do you have an actionable advice as to which image and tag you should change to in order to lower the footprint of your image's security vulnerabilities?
 
-## 2. Challenge: Don't steal my immutability!
+## 2. Challenge: Don't steal my (sort of) immutability!
 
 Your team needs to update to the latest version of Node.js 10 LTS to get fixes and keep up to date with security vulnerabilities.
 
 You do the obvious:
 
-```
+```sh
 docker pull node:10
 ```
 
