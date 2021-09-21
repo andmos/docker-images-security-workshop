@@ -1,5 +1,15 @@
 # Docker Image Security workshop
 
+## Useful material:
+
+[OWASP Docker Top 10](https://owasp.org/www-project-docker-top-10/)
+
+[10 Docker Security Best Practices](https://snyk.io/blog/10-docker-image-security-best-practices/)
+
+[7 Docker security vulnerabilities and threats](https://sysdig.com/blog/7-docker-security-vulnerabilities/)
+
+[How To Harden Your Docker Containers](https://www.secjuice.com/how-to-harden-docker-containers/)
+
 ## 1. Challenge: Find the most vulnerability-free image
 
 Demo OS-level vulnerabilities made possible by a vulnerability in a library installed on the operating system, and used by an application: [https://github.com/lirantal/goof-container-breaking-in](https://github.com/lirantal/goof-container-breaking-in)
@@ -146,7 +156,7 @@ You're looking for the `Digest` key in the output of `docker pull`
 <details><summary>Solution: how to pull the image by its SHA256</summary>
 <br/>
    
-```
+```sh
 docker pull node@sha256:bdc6d102e926b70690ce0cc0b077d450b1b231524a69b874912a9b337c719e6e
 ```
 
@@ -157,7 +167,7 @@ docker pull node@sha256:bdc6d102e926b70690ce0cc0b077d450b1b231524a69b874912a9b33
 
 Reminder: if you're coming here from previous challenges, did you remember to turn Docker's Content Trust policy off? Right, you need to do that:
 
-```
+```sh
 export DOCKER_CONTENT_TRUST=0
 ```
 
@@ -180,7 +190,6 @@ Only after you found issues with either or both of the above linters should you 
 <details><summary>Hint</summary>
 <br/>
 
-
 ```sh
 docker build -t best-practices .
 ```
@@ -192,7 +201,6 @@ docker build -t best-practices .
 
 <details><summary>Solution</summary>
 <br/>
-
 
 ```sh
 docker run -it --rm best-practices:latest sh
@@ -212,7 +220,7 @@ whoami
 <details><summary>Solution</summary>
 <br/>
 Update the Dockerfile to make use of the built-in `node` user:
-   
+
 ```sh
 ...
 USER node
@@ -231,7 +239,7 @@ It was smelly of secrets and tokens!
 
 I am specifically referring to this entry in the `Dockerfile`:
 
-```
+```sh
 RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
 ```
 
@@ -350,6 +358,10 @@ CMD node index.js
 
 <br/>
 </details>
+
+## 5. What now? 
+
+When you have completed the tasks, check one of your own `Dockerfile`'s and see if you have any vulnerabilities or other weaknesses. Use the resources on top or run through the files with the exercises in mind.  
 
 # Author
 
