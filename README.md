@@ -197,7 +197,7 @@ docker build -t best-practices .
 <br/>
 </details>
 
-2. Check if the container is running with the root user. If so, that's not good.
+2. Check if the container is running with the root user. If so, that's not good. See if you can delete som critical files inside the container.
 
 <details><summary>Solution</summary>
 <br/>
@@ -361,7 +361,7 @@ CMD node index.js
 
 ## 5. What now? 
 
-When you have completed the tasks, check one of your own `Dockerfile`'s and see if you have any vulnerabilities or other weaknesses. Use the resources on top or run through the files with the exercises in mind.  
+When you have completed the tasks, check one of your own `Dockerfile`'s and see if you have any vulnerabilities or other weaknesses. Use the resources on top or run through the files with the exercises in mind.
 
 # Author
 
